@@ -1,0 +1,5 @@
+*.log
+hft/wprod/data/
+hft/wuat/data/
+hft/lprod/data/
+hft/luat/data/
