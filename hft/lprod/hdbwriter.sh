@@ -2,7 +2,7 @@ export currDir=$(cd `dirname $0` && pwd)
 export logDir=$currDir/log/hdbwriter
 export dataDir=$currDir/data
 
-export QINFRA=%~currDir../../../qinfra
+export QINFRA=$currDir/../../../qinfra
 export dependPath=$currDir/../
 export initScript=$currDir/../initHdbWriter.q
 

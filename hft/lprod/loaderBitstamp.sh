@@ -1,7 +1,7 @@
 export currDir=$(cd `dirname $0` && pwd)
 export logDir=$currDir/log/loader/bitstamp
 
-export QINFRA=%~currDir../../../qinfra
+export QINFRA=$currDir/../../../qinfra
 export dependPath=$currDir/../
 export initScript=$currDir/../initBitstamp.q
 
