@@ -3,17 +3,14 @@
 ///
 //
 
-
-.qbit.bitmex.priv.apikey:"89r54UDp4fKiMNcVusRvo-PW";
-.qbit.bitmex.priv.apisecret:"lA5IIauzKLRcHlJptCxgwlPFeXCi2ZEon7DG_4IRv1XpxZ3a";
 .qbit.bitmex.priv.instrument:`XBTUSD`XBTH18`XBTZ17`XBJZ17`BCHZ17`BCHF18`B_BLOCKSZ17`DASHZ17`DASHH18`ETHZ17`ETHH18`ETC7D`LTCZ17;
 
 // subscribe to bitmex
 .qbit.bitmex.sub:{
     .qbit.ws.connect[`.qbit.bitmex.priv.h;`:wss://www.bitmex.com; "GET /realtime HTTP/1.1\r\nHost: www.bitmex.com\r\n\r\n"; 1b];
 
-    .qr.timer.removeByFunctor[`.qbit.bitmex.ping];
-    .qr.timer.start[`.qbit.bitmex.ping;(::);1000];
+    //.qr.timer.removeByFunctor[`.qbit.bitmex.ping];
+    //.qr.timer.start[`.qbit.bitmex.ping;(::);1000];
     };
 
 // subscribe to UAT
@@ -21,7 +18,7 @@
     .qbit.ws.connect[`.qbit.bitmex.priv.h;`:wss://testnet.bitmex.com; "GET /realtime HTTP/1.1\r\nHost: testnet.bitmex.com\r\n\r\n"; 1b];
 
     .qr.timer.removeByFunctor[`.qbit.bitmex.ping];
-    .qr.timer.start[`.qbit.bitmex.ping;(::);1000];
+    //.qr.timer.start[`.qbit.bitmex.ping;(::);1000];
     };
 
 // unsubcribe bitmex
@@ -30,7 +27,7 @@
         .qbit.ws.disconnect .qbit.bitmex.priv.h;
         ];
 
-    .qr.timer.removeByFunctor[`.qbit.bitmex.ping];
+    //.qr.timer.removeByFunctor[`.qbit.bitmex.ping];
     };
 
 // sub/unsub the order book
@@ -44,6 +41,7 @@
 .qbit.bitmex.priv.orderbook:{[json]
     if[`table in key json;
         if[json[`table]~"orderBookL2";
+            .tmp.json:json;
             data:.qr.schema.getEmptyTbl[`bitmexOrderBookL2] uj //TODO: fix this for speed improvement
                 update action:enlist json[`action], timestampServer:.z.p from json`data;
             .qbit.loader.load[`bitmexOrderBookL2;data;1b;1b;`partitioned];
@@ -65,7 +63,7 @@
             data:update bids:{flip x} each bids, asks:{flip x} each asks,
                 action:enlist json[`action], timestampServer:.z.p from json`data;
             data:select symbol, bids:{first x} each bids, bidSizes:{last x} each  bids,
-                asks:{first x} each asks, askSizes:{last x} each asks, timestamp, action, timestampServer from data;
+                asks:{first x} each asks, askSizes:{last x} each asks, timestamp:"Z"$timestamp, action, timestampServer from data;
             data:.qr.schema.getEmptyTbl[`bitmexOrderBook10] uj data;
             .qbit.loader.load[`bitmexOrderBook10;data;1b;1b;`partitioned];
             ];
@@ -81,13 +79,13 @@
     };
 
 .qbit.bitmex.priv.livetrades:{[json]
-    / if[`table in key json;
-    /     if[json[`table]~"trade";
-    /         data:.qr.schema.getEmptyTbl[`bitmexLivetrades] uj
-    /             update action:enlist json[`action], timestampServer:.z.p from json`data;
-    /         .qbit.loader.load[`bitmexLivetrades;data;1b;1b;`partitioned];
-    /         ];
-    /     ];
+    if[`table in key json;
+        if[json[`table]~"trade";
+            data:.qr.schema.getEmptyTbl[`bitmexLivetrades] uj
+                update action:enlist json[`action], timestamp:"Z"$timestamp, timestampServer:.z.p from json`data;
+            .qbit.loader.load[`bitmexLivetrades;data;1b;1b;`partitioned];
+            ];
+        ];
     };
 
 // sub/unsub live trades with 1 miniute bin
@@ -102,7 +100,7 @@
     if[`table in key json;
         if[json[`table]~"tradeBin1m";
             data:.qr.schema.getEmptyTbl[`bitmexTradeBin1m] uj
-                update action:enlist json[`action], timestampServer:.z.p from json`data;
+                update action:enlist json[`action], timestamp:"Z"$timestamp, timestampServer:.z.p from json`data;
             .qbit.loader.load[`bitmexTradeBin1m;data;1b;1b;`partitioned];
             ];
         ];
@@ -120,7 +118,7 @@
     if[`table in key json;
         if[json[`table]~"quote";
             data:.qr.schema.getEmptyTbl[`bitmexQuote] uj
-                update action:enlist json[`action], timestampServer:.z.p from json`data;
+                update action:enlist json[`action], timestamp:"Z"$timestamp, timestampServer:.z.p from json`data;
             .qbit.loader.load[`bitmexQuote;data;1b;1b;`partitioned];
             ];
         ];
@@ -138,26 +136,8 @@
     if[`table in key json;
         if[json[`table]~"quoteBin1m";
             data:.qr.schema.getEmptyTbl[`bitmexQuoteBin1m] uj
-                update action:enlist json[`action], timestampServer:.z.p from json`data;
+                update action:enlist json[`action], timestamp:"Z"$timestamp, timestampServer:.z.p from json`data;
             .qbit.loader.load[`bitmexQuoteBin1m;data;1b;1b;`partitioned];
-            ];
-        ];
-    };
-
-// sub/unsub instrument update
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: instrument ticker
-//
-.qbit.bitmex.instrumentInfo:{
-    .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;y;"instrument"];`.qbit.bitmex.priv.instrumentInfo];
-    };
-
-.qbit.bitmex.priv.instrumentInfo:{[json]
-    if[`table in key json;
-        if[json[`table]~"instrument";
-            data:.qr.schema.getEmptyTbl[`bitmexInstrumentInfo] uj
-                update action:enlist json[`action], timestampServer:.z.p from json`data;
-            .qbit.loader.load[`bitmexInstrumentInfo;data;1b;0b;`];
             ];
         ];
     };
@@ -173,7 +153,7 @@
     if[`table in key json;
         if[json[`table]~"insurance";
             data:.qr.schema.getEmptyTbl[`bitmexInsurance] uj
-                update action:enlist json[`action], timestampServer:.z.p from json`data;
+                update action:enlist json[`action], timestamp:"Z"$timestamp, timestampServer:.z.p from json`data;
             .qbit.loader.load[`bitmexInsurance;data;1b;1b;`partitioned];
             ];
         ];

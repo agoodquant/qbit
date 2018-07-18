@@ -37,7 +37,9 @@
         data:.j.k json[`data];
         bids:-9h$flip data[`bids];
         asks:-9h$flip data[`asks];
-        data:([] bids:enlist first bids; bidSizes:enlist last bids; asks:enlist first asks; askSizes:enlist last asks; timestampServer:.z.p);
+        data:([] bids:enlist first bids; bidSizes:enlist last bids;
+                 asks:enlist first asks; askSizes:enlist last asks;
+                 timestamp:"P"$data[`timestamp]; timestampServer:.z.p);
         data:.qr.schema.getEmptyTbl[`bitstampOrderBookL2] uj data;
         .qbit.loader.load[`bitstampOrderBookL2;data;1b;1b;`partitioned];
         ];
@@ -56,10 +58,9 @@
         data:.j.k json[`data];
         bids:-9h$flip data[`bids];
         asks:-9h$flip data[`asks];
-        ts:data[`timestamp];
         data:([] bids:enlist .qr.list.enlist first bids; bidSizes:enlist .qr.list.enlist last bids;
                  asks:enlist .qr.list.enlist first asks; askSizes:enlist .qr.list.enlist last asks;
-                 timestamp:enlist ts; timestampServer:.z.p);
+                 timestamp:"P"$data[`timestamp]; timestampServer:.z.p);
         data:.qr.schema.getEmptyTbl[`bitstampOrderBookFull] uj data;
         .qbit.loader.load[`bitstampOrderBookFull;data;1b;1b;`partitioned];
         ];
@@ -76,7 +77,7 @@
 .qbit.bitstamp.priv.liveorders:{[json]
     if[(json[`event] like "order*") and json[`channel]~"live_orders";
         data:enlist .j.k json[`data];
-        data:update event:enlist json[`event], timestampServer:.z.p from data;
+        data:update event:enlist json[`event], datetime:"P"$datetime, microtimestamp:"P"$microtimestamp, timestampServer:.z.p from data;
         data:.qr.schema.getEmptyTbl[`bitstampLiveOrders] uj data;
         .qbit.loader.load[`bitstampLiveOrders;data;1b;1b;`partitioned];
         ];
@@ -93,7 +94,7 @@
 .qbit.bitstamp.priv.livetrades:{[json]
     if[(json[`event]~"trade") and json[`channel]~"live_trades";
         data:enlist .j.k json[`data];
-        data:update event:enlist json[`event], timestampServer:.z.p from data;
+        data:update event:enlist json[`event], timestamp:"P"$timestamp, timestampServer:.z.p from data;
         data:.qr.schema.getEmptyTbl[`bitstampLiveTrades] uj data;
         .qbit.loader.load[`bitstampLiveTrades;data;1b;1b;`partitioned];
         ];
