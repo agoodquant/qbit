@@ -18,3 +18,9 @@ To launch the HFT Loader/RDB/HDB/HDB writter infrastructure, do the following
 Alternatively, the batch files have been setup for each componenent in the directory hft. Change the content of the batch files if neccessarily. Please execute the following in order: hdb, hdbwriter, rdb, and loader.
 
 Obviously, execute .bat in windows and .sh in linux.
+
+ logging
+ ===========
+ logging is done in async extending on log4q in qr module. Below is a screenshot using baretail in windows. In linux, tail -f obviously
+![alt text](https://github.com/agoodquant/qbit/blob/master/log.jpg)
+ 
