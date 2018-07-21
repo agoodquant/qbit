@@ -10,9 +10,6 @@
     .qbit.ws.connect[`.qbit.bitstamp.priv.h;`:ws://ws.pusherapp.com;
         "GET /app/de504dc5763aeef9ff52?protocol=6&client=js&version=2.1.2&flash=false HTTP/1.1\r\nHost: ws.pusherapp.com\r\n\r\n";
         1b];
-
-    .qr.timer.removeByFunctor[`.qbit.bitstamp.ping];
-    .qr.timer.start[`.qbit.bitstamp.ping;(::);1000];
     };
 
 // unsubcribe bitstamp
@@ -20,8 +17,6 @@
     if[.qr.exist `.qbit.bitstamp.priv.h;
         .qbit.ws.disconnect .qbit.bitstamp.priv.h;
         ];
-
-    .qr.timer.removeByFunctor[`.qbit.bitstamp.ping];
     };
 
 // sub/unsub the order book

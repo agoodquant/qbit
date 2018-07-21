@@ -8,17 +8,11 @@
 // subscribe to bitmex
 .qbit.bitmex.sub:{
     .qbit.ws.connect[`.qbit.bitmex.priv.h;`:wss://www.bitmex.com; "GET /realtime HTTP/1.1\r\nHost: www.bitmex.com\r\n\r\n"; 1b];
-
-    //.qr.timer.removeByFunctor[`.qbit.bitmex.ping];
-    //.qr.timer.start[`.qbit.bitmex.ping;(::);1000];
     };
 
 // subscribe to UAT
 .qbit.bitmex.subUAT:{
     .qbit.ws.connect[`.qbit.bitmex.priv.h;`:wss://testnet.bitmex.com; "GET /realtime HTTP/1.1\r\nHost: testnet.bitmex.com\r\n\r\n"; 1b];
-
-    .qr.timer.removeByFunctor[`.qbit.bitmex.ping];
-    //.qr.timer.start[`.qbit.bitmex.ping;(::);1000];
     };
 
 // unsubcribe bitmex
@@ -26,8 +20,6 @@
     if[.qr.exist `.qbit.bitmex.priv.h;
         .qbit.ws.disconnect .qbit.bitmex.priv.h;
         ];
-
-    //.qr.timer.removeByFunctor[`.qbit.bitmex.ping];
     };
 
 // sub/unsub the order book
@@ -41,7 +33,6 @@
 .qbit.bitmex.priv.orderbook:{[json]
     if[`table in key json;
         if[json[`table]~"orderBookL2";
-            .tmp.json:json;
             data:.qr.schema.getEmptyTbl[`bitmexOrderBookL2] uj //TODO: fix this for speed improvement
                 update action:enlist json[`action], timestampServer:.z.p from json`data;
             .qbit.loader.load[`bitmexOrderBookL2;data;1b;1b;`partitioned];

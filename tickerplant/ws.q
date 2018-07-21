@@ -76,6 +76,10 @@
 .qbit.ws.subJson::.qbit.ws.sub[;;;;`json];
 .qbit.ws.subRaw::.qbit.ws.sub[;;;;`raw];
 
+.qbit.ws.listen:{[sub;h;msg;func;subType]
+    $[sub; .qbit.ws.priv.sub[h;func;msg;subType]; .qbit.ws.priv.unsub[h;func]];
+    };
+
 .qbit.ws.priv.sub:{[h;func;msg;subType]
     if[not .qbit.ws.exist[h;func];
         .qbit.ws.priv.transformFunc:.qbit.ws.priv.transformFunc, `handle`func`msg`subTime`subType!(h; func; msg; .z.p; subType);
@@ -165,6 +169,6 @@
 
 .z.ws:{.qbit.ws.transform[.z.w; x];};
 
-//.z.wc:{.qbit.ws.onClose[];};
+.z.wc:{.qbit.ws.onClose[];};
 
 .qbit.ws.init[];

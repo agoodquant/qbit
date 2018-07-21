@@ -3,7 +3,6 @@
 ///
 //
 
-.qr.include["exchange";"ws.q"];
 .qr.include["exchange";"schema.q"];
 .qr.include["exchange";"blockchain.q"];
 .qr.include["exchange";"bitstamp.q"];

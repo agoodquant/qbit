@@ -19,8 +19,6 @@
     ];
 
 .qr.setSev[`INFO];
-.qr.setLog[1;`SILENT`DEBUG`INFO];
-.qr.setLog[2;`WARN`ERROR`FATAL];
 
 //bitmex
 $[`uat in key .Q.opt .z.x; .qbit.bitmex.subUAT[]; .qbit.bitmex.sub[]];

@@ -6,9 +6,6 @@
 // subscribe to the blockchain by opening a websocket handle
 .qbit.blockchain.sub:{
     .qbit.ws.connect[`.qbit.blockchain.priv.h;`:ws://ws.blockchain.info; "GET /inv HTTP/1.1\r\nHost: ws.blockchain.info\r\n\r\n"; 1b];
-
-    .qr.timer.removeByFunctor[`.qbit.blockchain.ping];
-    .qr.timer.start[`.qbit.blockchain.ping;(::);1000];
     };
 
 // unsubcribe blockchain
@@ -16,8 +13,6 @@
     if[.qr.exist `.qbit.blockchain.priv.h;
         .qbit.ws.disconnect .qbit.blockchain.priv.h;
         ];
-
-    .qr.timer.removeByFunctor[`.qbit.blockchain.ping];
     };
 
 // subscribe to unconfirm transaction
