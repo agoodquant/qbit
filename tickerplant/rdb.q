@@ -12,7 +12,7 @@
 
 // clean up the data. only keep data for last 48 hours
 .qbit.rdb.clean:{
-    {delete from x where timestampServer < .z.p-03:00:00.000000000} each .qbit.rdb.priv.tbls;
+    {delete from x where timestampServer < .z.p-06:00:00.000000000} each .qbit.rdb.priv.tbls;
     };
 
 // init rdb
@@ -22,6 +22,5 @@
         ];
 
     .qr.timer.removeByFunctor[`.qbit.rdb.clean];
-    // delete the data every 24 hour
-    .qr.timer.forwardStart[`.qbit.rdb.clean;(::);"p"$.z.d+1;24000*3600];
+    .qr.timer.forwardStart[`.qbit.rdb.clean;(::);06:00:00.000000000 xbar .z.p + 06:00:00.000000000;6*3600000];
     };
