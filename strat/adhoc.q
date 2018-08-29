@@ -1,10 +1,10 @@
-.qr.loadDep[`env;"Q:/qr/env"];
-.qr.loadDep[`quant;"Q:/qr/quant"];
+.qinfra.loadDep[`env;"Q:/qr/env"];
+.qinfra.loadDep[`quant;"Q:/qr/quant"];
 
-.qr.load["env"];
-.qr.load["thirdparty"];
-.qr.load["quant"];
-.qr.load["util"];
+.qinfra.load["env"];
+.qinfra.load["thirdparty"];
+.qinfra.load["quant"];
+.qinfra.load["util"];
 
 
 bitmexQuote:.qr.remote.rpc["localhost:26051"] "select from bitmexQuote where date = .z.d-1"

@@ -3,7 +3,7 @@
 ///
 //
 
-.qr.include["exchange";"schema.q"];
-.qr.include["exchange";"blockchain.q"];
-.qr.include["exchange";"bitstamp.q"];
-.qr.include["exchange";"bitmex.q"];
+.qinfra.include["exchange";"schema.q"];
+.qinfra.include["exchange";"blockchain.q"];
+.qinfra.include["exchange";"bitstamp.q"];
+.qinfra.include["exchange";"bitmex.q"];

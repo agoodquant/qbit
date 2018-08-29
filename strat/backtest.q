@@ -1,12 +1,12 @@
-.qr.loadDep[`quant;"Q:/qr/quant"];
+.qinfra.loadDep[`quant;"Q:/qr/quant"];
 
-.qr.load["env")];
-.qr.load["thirdparty"];
-.qr.load["util"];
-.qr.load["quant"];
+.qinfra.load["env")];
+.qinfra.load["thirdparty"];
+.qinfra.load["util"];
+.qinfra.load["quant"];
 
 
-.qr.listModule[]
+.qinfra.listModule[]
 .qr.ns.ls[`.qr]
 
 .qr.remote.rpc["localhost:26041"] "key `."

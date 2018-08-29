@@ -1,9 +1,9 @@
 //init script for rdb
-.qr.load["env"];
-.qr.load["thirdparty"];
-.qr.load["util"];
+.qinfra.load["env"];
+.qinfra.load["thirdparty"];
+.qinfra.load["util"];
 
 .qr.setSev[`INFO];
 
-.qr.include["tickerplant";"rdb.q"];
+.qinfra.include["tickerplant";"rdb.q"];
 .qbit.rdb.init[];

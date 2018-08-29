@@ -1,17 +1,17 @@
 //loading
-.qr.loadDep[`exchange;"Q:/qbit/exchange"]
-.qr.listDep[]
+.qinfra.loadDep[`exchange;"Q:/qbit/exchange"]
+.qinfra.listDep[]
 
-.qr.load["thirdparty"];
-.qr.load["env"];
-.qr.load["util"];
-.qr.listModule[]
+.qinfra.load["thirdparty"];
+.qinfra.load["env"];
+.qinfra.load["util"];
+.qinfra.listModule[]
 
 //////////////////////////////////////////
 // loader
 /////////////////////////////////////////
-.qr.load["exchange"];
-.qr.include["tickerplant";"loader.q"];
+.qinfra.load["exchange"];
+.qinfra.include["tickerplant";"loader.q"];
 .qbit.loader.init["localhost:26041";"localhost:26051";"localhost:26052"];
 .qr.setSev[`INFO];
 //.qr.setSev[`SILENT]
@@ -86,7 +86,7 @@
 //////////////////////////////////////////
 // rdb
 /////////////////////////////////////////
-.qr.include[("tickerplant";"rdb.q")];
+.qinfra.include[("tickerplant";"rdb.q")];
 .qbit.rdb.clean[];
 
 // bitmex
@@ -115,13 +115,13 @@ blockChainTransactionDetails
 //////////////////////////////////////////
 // hdb
 /////////////////////////////////////////
-.qr.include[("tickerplant";"hdb.q")];
+.qinfra.include[("tickerplant";"hdb.q")];
 .qbit.hdb.init["c:/Users/user/Desktop/Document/dev/KDB+/data"]
 
 //////////////////////////////////////////
 // hdbwriter
 /////////////////////////////////////////
-.qr.include[("tickerplant";"hdbwriter.q")];
+.qinfra.include[("tickerplant";"hdbwriter.q")];
 .qbit.hdbwriter.init["localhost:26051"];
 .qbit.hdbwriter.splay[`test2;([] a:1 2 3f; b:`r`d`b)]
 .qbit.hdbwriter.partition[`test2;([] a:1 2 3f; b:`r`d`b);.z.d-1];

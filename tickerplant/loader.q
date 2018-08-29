@@ -3,7 +3,7 @@
 ///
 //
 
-.qr.include["tickerplant";"ws.q"];
+.qinfra.include["tickerplant";"ws.q"];
 
 // init the loader
 //@param rdb: rdb handle

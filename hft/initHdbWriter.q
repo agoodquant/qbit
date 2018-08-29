@@ -1,7 +1,7 @@
 //init script for hdb writer
-.qr.load["env"];
-.qr.load["thirdparty"];
-.qr.load["util"];
+.qinfra.load["env"];
+.qinfra.load["thirdparty"];
+.qinfra.load["util"];
 
 .qr.setParams[
     .qr.param[`hdb; `$"localhost:26051"]
@@ -9,5 +9,5 @@
 
 .qr.setSev[`INFO];
 
-.qr.include["tickerplant";"hdbwriter.q"];
+.qinfra.include["tickerplant";"hdbwriter.q"];
 .qbit.hdbwriter.init[string .qr.getParam`hdb];
