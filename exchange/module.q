@@ -3,6 +3,8 @@
 ///
 //
 
+.qinfra.import[`.qbit];
+
 .qinfra.include["exchange";"schema.q"];
 .qinfra.include["exchange";"blockchain.q"];
 .qinfra.include["exchange";"bitstamp.q"];
