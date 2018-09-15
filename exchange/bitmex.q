@@ -160,12 +160,14 @@
 .qbit.bitmex.priv.serverInfo:{[json]
     if[`table in key json;
         if[json[`table]~"connected";
-            data:.qr.schema.getEmptyTbl[`bitmexServerInfo] uj
-                update action:enlist json[`action], timestampServer:.z.p from json`data;
-            .qbit.loader.load[`bitmexServerInfo;data;1b;1b;`partitioned];
+            if[.qr.tbl.isNonEmpty json`data;
+                data:.qr.schema.getEmptyTbl[`bitmexServerInfo] uj
+                    update action:enlist json[`action], timestampServer:.z.p from json`data;
+                .qbit.loader.load[`bitmexServerInfo;data;1b;1b;`partitioned];
+                ];
             ];
         ];
-    };
+    }
 
 // sub/unsub liquidation orders.
 //@param x: boolean. 1b to sub. 0b to unsub
