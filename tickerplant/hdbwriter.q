@@ -18,7 +18,6 @@
 //@param t: table name
 //@param data: data
 //@param mode: must be either `splayed or `partitioned
-//@param delayed:
 //
 .qbit.hdbwriter.save:{[t;data;mode]
     .qbit.hdbwriter.priv.cache[t;data];
@@ -83,9 +82,6 @@
     };
 
 // save the data into disk as splayed format
-//@param t: table name
-//@param data: data
-//@return true to indicate the operation is successful
 .qbit.hdbwriter.splay:{[t;data]
     targetPath:.qr.remote.rpc[.qbit.priv.hdb] ".qbit.hdb.getRoot[]";
     tbls:.qr.remote.rpc[.qbit.priv.hdb] "\\a";
@@ -99,10 +95,6 @@
     1b};
 
 // save the data into disk as partitioned format
-//@param t: table name
-//@param data: data
-//@param dt: date for partition
-//@return true to indicate the operation is successful
 .qbit.hdbwriter.partition:{[t;data;dt]
     targetPath:.qr.remote.rpc[.qbit.priv.hdb] ".qbit.hdb.getRoot[]";
     tbls:.qr.remote.rpc[.qbit.priv.hdb] "\\a";

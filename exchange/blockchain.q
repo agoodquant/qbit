@@ -15,16 +15,13 @@
         ];
     };
 
-// subscribe to unconfirm transaction
-//@param x: 1b to sub; 0b to unsub
+// unconfirm transaction
 .qbit.blockchain.transaction:{
     message:$[x; "{\"op\":\"unconfirmed_sub\"}"; "{\"op\":\"unconfirmed_unsub\"}"];
     .qbit.ws.subJson[x;.qbit.blockchain.priv.h;message;`.qbit.blockchain.priv.transaction];
     };
 
-// subscribe to unconfirm transaction on specific address
-//@param x: 1b to sub; 0b to unsub
-//@param y: subscribe address
+// unconfirm transaction on specific address
 .qbit.blockchain.transactionOnAddr:{
     message:.j.j ("op";"addr")!($[x;"addr_sub";"add_unsub"];y);
     .qbit.ws.subJson[x;.qbit.blockchain.priv.h;message;`.qbit.blockchain.priv.transaction];
@@ -50,8 +47,7 @@
         ];
     };
 
-// subscribe to newest block being mined
-//@param x: 1b to sub; 0b to unsub
+// newest block being mined
 .qbit.blockchain.newblock:{
     message:$[x; "{\"op\":\"blocks_sub\"}"; "{\"op\":\"blocks_unsub\"}"];
     .qbit.ws.subJson[x;.qbit.blockchain.priv.h;message;`.qbit.blockchain.priv.newblock];
@@ -68,12 +64,12 @@
         ];
     };
 
-// ping the blockchain server to make sure it is alive
+// ping
 .qbit.blockchain.ping:{
     neg[.qbit.blockchain.priv.h] "{\"op\":\"ping\"}";
     };
 
-// ping the blockchain server to get the last block
+// ping latest block
 .qbit.blockchain.pingLatest:{
     neg[.qbit.blockchain.priv.h] "{\"op\":\"ping_tx\"}";
     };

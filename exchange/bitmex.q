@@ -22,10 +22,7 @@
         ];
     };
 
-// sub/unsub the order book
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: instrument ticker
-//
+// order book
 .qbit.bitmex.orderbook:{
     .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;y;"orderBookL2"];`.qbit.bitmex.priv.orderbook];
     };
@@ -40,10 +37,7 @@
         ];
     };
 
-// sub/unsub the full order book, only top 10 levels
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: instrument ticker
-//
+// full order book, only top 10 levels
 .qbit.bitmex.orderbookFull:{
     .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;y;"orderBook10"];`.qbit.bitmex.priv.orderbookFull];
     };
@@ -61,10 +55,7 @@
         ];
     };
 
-// sub/unsub live trades
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: instrument ticker
-//
+// live trades
 .qbit.bitmex.livetrades:{
     .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;y;"trade"];`.qbit.bitmex.priv.livetrades];
     };
@@ -79,10 +70,7 @@
         ];
     };
 
-// sub/unsub live trades with 1 miniute bin
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: instrument ticker
-//
+// live trades with 1 miniute bin
 .qbit.bitmex.tradeBin1m:{
     .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;y;"tradeBin1m"];`.qbit.bitmex.priv.tradeBin1m];
     };
@@ -97,10 +85,7 @@
         ];
     };
 
-// sub/unsub top level quotes
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: instrument ticker
-//
+// top level quotes
 .qbit.bitmex.quote:{
     .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;y;"quote"];`.qbit.bitmex.priv.quote];
     };
@@ -115,10 +100,7 @@
         ];
     };
 
-// sub/unsub top level quotes with 1 minute bin
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: instrument ticker
-//
+// top level quotes with 1 minute bin
 .qbit.bitmex.quoteBin1m:{
     .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;y;"quoteBin1m"];`.qbit.bitmex.priv.quoteBin1m];
     };
@@ -133,9 +115,7 @@
         ];
     };
 
-// sub/unsub insurance fund
-//@param x: boolean. 1b to sub. 0b to unsub
-//
+// insurance fund
 .qbit.bitmex.insurance:{
     .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;`;"insurance"];`.qbit.bitmex.priv.insurance];
     };
@@ -150,9 +130,7 @@
         ];
     };
 
-// sub/unsub server info
-//@param x: boolean. 1b to sub. 0b to unsub
-//
+// server info
 .qbit.bitmex.serverInfo:{
     .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;`;"connected"];`.qbit.bitmex.priv.serverInfo];
     };
@@ -169,10 +147,7 @@
         ];
     }
 
-// sub/unsub liquidation orders.
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: instrument ticker
-//
+// liquidation orders.
 .qbit.bitmex.liquidation:{
     .qbit.ws.subJson[x;.qbit.bitmex.priv.h;.qbit.bitmex.getSubMsg[x;y;"liquidation"];`.qbit.bitmex.priv.liquidation];
     };
@@ -197,17 +172,11 @@
     };
 
 // ping the server
-//@param x: boolean. 1b to sub. 0b to unsub
-//
 .qbit.bitmex.ping:{
     neg[.qbit.bitmex.priv.h] "ping";
     };
 
-// send the message into websocket
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: instrument ticker
-//@oaran z: channel
-//
+// exchange api
 .qbit.bitmex.getSubMsg:{
     if[not null y;
         .qbit.bitmex.priv.checkInstrument[y];

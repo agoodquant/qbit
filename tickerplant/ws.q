@@ -5,9 +5,6 @@
 
 
 // transform incoming websocket message
-//@param h: handle
-//@param data: msg pushed from remote server
-//
 .qbit.ws.transform:{[h;data]
     exec .qbit.ws.priv.exec[.qr.trycatch[.j.k; data;(enlist `noneJson)!enlist data]]
         each func from .qbit.ws.priv.transformFunc where (handle = h) or null handle, subType=`json;
@@ -42,7 +39,6 @@
     };
 
 // disconnect to the remote websocket server
-//@param h: handle
 .qbit.ws.disconnect:{[h]
     delete from `.qbit.ws.priv.connection where handle = h;
     delete from `.qbit.ws.priv.transformFunc where handle = h;
@@ -60,11 +56,6 @@
     };
 
 // subscribe to the webscoket handle
-//@param sub: boolean; 1b to sub; 0b to unsub
-//@param h: handle
-//@param msg: subscription message sent to the remote server
-//@param func: monadic functor
-//
 .qbit.ws.sub:{[sub;h;msg;func;subType]
     $[sub; .qbit.ws.priv.sub[h;func;msg;subType]; .qbit.ws.priv.unsub[h;func]];
 
@@ -91,9 +82,6 @@
     };
 
 // check if functor is already sub
-//@param x: handle
-//@param y: monadic functor
-//
 .qbit.ws.exist:{[h;functor]
     0 <> count select from .qbit.ws.priv.transformFunc where handle = h, functor ~/: func
     };
@@ -129,7 +117,6 @@
     };
 
 // triggered when websocket is closed
-//
 .qbit.ws.onClose:{
     // figuring out which handle was just closed
     .qbit.ws.priv.onclose each .qbit.ws.priv.connection[`handle] except key .z.W;

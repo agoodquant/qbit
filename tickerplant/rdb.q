@@ -4,8 +4,6 @@
 //
 
 // save the data into memory
-//@param t: table name
-//@param data: data
 .qbit.rdb.save:{[t;data]
     $[.qr.exist t;t upsert data;[t set data; .qbit.rdb.priv.tbls ,: t;]];
     };

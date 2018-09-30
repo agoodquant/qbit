@@ -19,10 +19,7 @@
         ];
     };
 
-// sub/unsub the order book
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: fx pair
-//
+// order book
 .qbit.bitstamp.orderbook:{
     .qbit.ws.subJson[x;.qbit.bitstamp.priv.h;.qbit.bitstamp.getSubMsg[x;y;"order_book"];`.qbit.bitstamp.priv.orderbook];
     };
@@ -40,10 +37,7 @@
         ];
     };
 
-// sub/unsub the full order book
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: fx pair
-//
+// full order book
 .qbit.bitstamp.orderbookFull:{
     .qbit.ws.subJson[x;.qbit.bitstamp.priv.h;.qbit.bitstamp.getSubMsg[x;y;"diff_order_book"];`.qbit.bitstamp.priv.orderbookFull];
     };
@@ -61,10 +55,7 @@
         ];
     };
 
-// sub/unsub live orders
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: fx pair
-//
+// live orders
 .qbit.bitstamp.liveorders:{
     .qbit.ws.subJson[x;.qbit.bitstamp.priv.h;.qbit.bitstamp.getSubMsg[x;y;"live_orders"];`.qbit.bitstamp.priv.liveorders];
     };
@@ -78,10 +69,7 @@
         ];
     };
 
-// sub/unsub live trades
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: fx pair
-//
+// live trades
 .qbit.bitstamp.livetrades:{
     .qbit.ws.subJson[x;.qbit.bitstamp.priv.h;.qbit.bitstamp.getSubMsg[x;y;"live_trades"];`.qbit.bitstamp.priv.livetrades];
     };
@@ -100,11 +88,7 @@
     neg[.qbit.bitstamp.priv.h] "{\"event\" : \"pusher:ping\"}";
     };
 
-// construct the message into websocket
-//@param x: boolean. 1b to sub. 0b to unsub
-//@param y: fx pair
-//@oaran z: channel
-//
+// exchange api
 .qbit.bitstamp.getSubMsg:{
     .qbit.bitstamp.priv.checkFx[y];
 
@@ -114,6 +98,7 @@
     .qbit.bitstamp.priv.getMsg[subUnsub;placeHolder]
     };
 
+// private functions
 .qbit.bitstmap.priv.subUnsub:{
     $[x;"\"event\":\"pusher:subscribe\"";"\"event\":\"pusher:unsubscribe\""]
     };
