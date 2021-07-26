@@ -26,4 +26,4 @@ Obviously, execute .bat in windows and .sh in linux.
  
 License
 ===========
-[MIT](https://github.com/agoodquant/qbit/edit/master/LICENSE)
+[MIT](https://github.com/agoodquant/qbit/blob/master/LICENSE)
